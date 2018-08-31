@@ -1,0 +1,593 @@
+html, body
+{
+    width: 100%;
+    height: 100%;
+}
+*
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body
+{
+    margin: 0px;
+    padding: 0px;
+    min-width: 800px;
+    min-height: 600px;
+    background-color: #333333;
+}
+::-webkit-scrollbar
+{
+    width: 5px;
+    height: 10px;
+    background-color: #eee;
+}
+::-webkit-scrollbar-track
+{
+    x-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);!important;
+    border-radius: 10px;
+    background-color: #555;
+}
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    x-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #0068a2;
+}
+::-webkit-scrollbar-thumb:hover
+{
+    background-color: #0088ca;
+}
+.disable
+{
+    pointer-events: none;
+}
+.x-screen
+{
+    box-sizing: content-box !important;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.x-screen canvas
+{
+    display: block;
+    background-color: #333333;
+    position: absolute;
+    background-color: #000000;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
+}
+.x-cmd-bar
+{
+    z-index: 100;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 500px;
+    height: 40px;
+    margin-left: -250px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.x-cmd-bar .x-icon
+{
+    width: 70px;
+    height: 100px;
+    border-radius: 80px;
+    background-color: #000;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    margin-left: -35px;
+    background-image: url(./cthulhu.png);
+    background-repeat: no-repeat;
+    background-position: center 30px;
+}
+.x-cmd-bar .x-cmd
+{
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-color: transparent;
+    background-position: center;
+    cursor: pointer;
+    display: block;
+}
+.x-cmd-bar .x-cmd-right
+{
+    float: right;
+    margin-left: 10px;
+}
+.x-cmd-bar .x-cmd-left
+{
+    float: left;
+    margin-right: 10px;
+}
+.x-cmd-bar .x-cmd-transfer
+{
+    background-image: url(./icon/transfer.png);
+}
+.x-cmd-bar .x-cmd-transfer:hover
+{
+    background-image: url(./icon/transfer-hover.png);
+    background-color: #000000;
+}
+.x-cmd-bar .x-cmd-printscreen
+{
+    background-image: url(./icon/printscreen.png);
+}
+.x-cmd-bar .x-cmd-printscreen:hover
+{
+    background-image: url(./icon/printscreen-hover.png);
+    background-color: #000000;
+}
+.x-cmd-bar .x-cmd-disconnect
+{
+    background-image: url(./icon/disconnect.png);
+}
+.x-cmd-bar .x-cmd-disconnect:hover
+{
+    background-image: url(./icon/disconnect-hover.png);
+    background-color: #000000;
+}
+.x-cmd-bar .x-cmd-color
+{
+    background-image: url(./icon/color.png);
+}
+.x-cmd-bar .x-cmd-color:hover
+{
+    background-image: url(./icon/color-hover.png);
+    background-color: #000000;
+}
+.x-cmd-bar .x-cmd-copy
+{
+    background-image: url(./icon/copy.png);
+}
+.x-cmd-bar .x-cmd-copy:hover
+{
+    background-image: url(./icon/copy-hover.png);
+    background-color: #000000;
+}
+.x-cmd-bar .x-cmd-keyboard
+{
+    background-image: url(./icon/keyboard.png);
+}
+.x-cmd-bar .x-cmd-keyboard:hover
+{
+    background-image: url(./icon/keyboard-hover.png);
+    background-color: #000000;
+}
+.x-stat-panel
+{
+    z-index: 100;
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    margin-top: -300px;
+    width: 110px;
+    height: 600px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px 10px 10px 20px;
+}
+.x-stat-panel .x-stat h1
+{
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    font-weight: normal;
+}
+.x-stat-panel .x-stat h5
+{
+    font-weight: normal;
+    font-size: 7px;
+    color: #666;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    font-family: monospace;
+}
+.x-stat-panel hr
+{
+    margin: 10px 0px;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #555;
+}
+.x-auth-dialog
+{
+    xdisplay: none;
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 300px;
+    margin-top: -200px;
+    margin-left: -200px;
+    background-color: rgba(90, 90, 90, 0.4);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.x-auth-dialog .x-title
+{
+    font-size: 18px;
+    color: #ccc;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+.x-auth-dialog hr
+{
+    margin: 10px 0px;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #444;
+}
+.x-auth-dialog .x-password, .x-auth-dialog .x-button
+{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.x-auth-dialog .x-password input
+{
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    color: #ccc;
+    font-size: 18px;
+    border: solid 1px #999;
+    outline: none;
+    border-radius: 4px;
+    background-color: transparent;
+}
+.x-auth-dialog .x-password input:focus
+{
+    border: solid 1px #ccc;
+}
+.x-auth-dialog .x-button button
+{
+    outline: none;
+    border: solid 1px #999;
+    color: #ccc;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 140px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 4px;
+}
+.x-auth-dialog .x-button button:hover
+{
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid 1px #ccc;
+    cursor: pointer;
+}
+.x-auth-dialog .x-message
+{
+    height: 60px;
+    line-height: 60px;
+    color: #ff9900;
+    text-align: center;
+    margin-top: 20px;
+}
+.x-message-box
+{
+    position: absolute;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+    border-radius: 10px;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    z-index: 1000000;
+}
+.x-dialog
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.8);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: #ccc;
+    padding: 20px;
+}
+.x-dialog .x-title
+{
+    font-size: 18px;
+    color: #ccc;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+.x-dialog-clipboard
+{
+    width: 800px;
+    height: 600px;
+    margin-left: -400px;
+    margin-top: -300px;
+    display: none;
+}
+.x-dialog-keyboard
+{
+    width: 656px;
+    height: 400px;
+    margin-left: -328px;
+    margin-top: -200px;
+    display: none;
+}
+.x-dialog-fmanager
+{
+    width: 800px;
+    height: 600px;
+    margin-left: -400px;
+    margin-top: -300px;
+    display: none;
+}
+.x-dialog hr
+{
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: #444;
+}
+.x-dialog .x-actions
+{
+    text-align: center;
+    margin-top: 40px;
+}
+.x-dialog .btn
+{
+    outline: none;
+    border: solid 1px #999;
+    color: #ccc;
+    background-color: rgba(0, 0, 0, 0.4);
+    min-width: 140px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 4px;
+    vertical-align: top;
+}
+.x-dialog .btn:hover
+{
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid 1px #ccc;
+    cursor: pointer;
+}
+.x-dialog-clipboard textarea
+{
+    outline: none;
+    border: solid 1px #666;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: transparent;
+    width: 100%;
+    height: 180px;
+    color: #ccc;
+    font-size: 14px;
+    resize: none;
+    font-family: Consolas, monospace;
+}
+.x-dialog .x-title .x-close
+{
+    color: #dedede;
+    font-size: 10px;
+    float: right;
+    width: 16px;
+    height: 16px;
+    display: block;
+    background-image: url(./icon/close.png);
+    cursor: pointer;
+    margin-top: 22px;
+}
+
+/* ********************************************** 虚拟键盘 ********************************************** */
+.x-keyboard
+{
+    background-color: #555;
+    padding: 10px;
+    display: inline-block;
+}
+.x-keyboard b
+{
+    background-color: #000;
+    color: #ccc;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0px 2px 2px 0px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: normal;
+    display: block;
+    box-shadow: 1px 1px 1px #000;
+    border-radius: 3px;
+}
+.x-keyboard .x-pressed
+{
+    background-color: #efefef;
+    color: #000000;
+}
+.x-keyboard .x-align-left
+{
+    text-align: left;
+    text-indent: 10px;
+}
+.x-keyboard .x-align-right
+{
+    text-align: right;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+.x-keyboard .x-2b
+{
+    width: 45px !important;
+}
+.x-keyboard .x-3b
+{
+    width: 62px !important;
+}
+.x-keyboard .x-4b
+{
+    width: 70px !important;
+}
+.x-keyboard .x-spacebar
+{
+    width: 237px !important;
+}
+.x-keyboard .x-4b:last-child
+{
+    width: 69px !important;
+}
+.x-keyboard b, .x-keyboard i
+{
+    float: left;
+}
+.x-keyboard b:hover
+{
+    cursor: pointer;
+    background-color: #236;
+}
+.x-keyboard i
+{
+    width: 10px;
+    height: 30px;
+    margin: 0px 2px 2px 0px;
+}
+.x-keyboard sup
+{
+    font-size: 7px;
+    color: #666;
+    margin-left: 4px;
+}
+.x-keyboard .x-shiftkey, .x-keyboard .x-shiftkey b
+{
+    line-height: 24px;
+}
+.x-keyboard .x-funcs
+{
+    margin-bottom: 20px;
+}
+.x-keyboard .x-funcs i
+{
+    width: 13px;
+}
+.x-keyboard .x-kb-main, .x-keyboard .x-kb-ctrl
+{
+    display: inline-block;
+    float: left;
+}
+.x-keyboard .x-kb-ctrl
+{
+    margin-left: 20px;
+}
+.x-keyboard .x-dir
+{
+    margin-top: 32px;
+    margin-left: 24px;
+    width: 100px;
+}
+.x-keyboard .x-dir b
+{
+    xfloat: none;
+    xdisplay: inline-block;
+    text-align: center;
+    font-size: 32px;
+}
+.x-keyboard .x-dir s
+{
+    width: 30px;
+    height: 30px;
+    float: left;
+    display: inline-block;
+    margin: 0px 2px 2px 0px;
+}
+.clearfix
+{
+    clear: both;
+}
+
+/* ********************************************** 文件管理 ********************************************** */
+
+.x-fmanager
+{
+    width: 100%;
+    height: 400px;
+    color: #efefef;
+    font-size: 14px;
+}
+.x-fmanager .x-filelist
+{
+    height: 360px;
+    overflow: auto;
+}
+.x-fmanager table tbody tr:hover
+{
+    background-color: #000;
+}
+.x-fmanager .x-path
+{
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.x-fmanager .x-path img
+{
+    vertical-align: text-top;
+}
+.x-fmanager a
+{
+    color: #dedede;
+    text-decoration: none;
+}
+.x-fmanager .x-path a
+{
+    margin-right: 3px;
+    float: left;
+}
+.x-fmanager .x-path a:hover
+{
+    color: #999;
+}
+.x-fmanager tbody td i
+{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.x-fmanager table tbody td img
+{
+    width: 16px;
+    height: 16px;
+    vertical-align: bottom;
+}
+.x-fmanager table tbody td a:hover
+{
+    color: #0099ff;
+}
