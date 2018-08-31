@@ -11,7 +11,8 @@ public final class Log
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static enum Type { ERROR, INFO, DEBUG };
 
-    private static OutputStream logWriter = System.err;
+    // TODO: 给这个System.out做一个代理，接管它的输出
+    private static OutputStream logWriter = System.out;
 
     private static synchronized String getCurrentTime()
     {

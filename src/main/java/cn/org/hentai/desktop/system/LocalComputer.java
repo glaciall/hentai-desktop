@@ -1,6 +1,11 @@
 package cn.org.hentai.desktop.system;
 
 import java.awt.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 /**
  * Created by matrixy on 2018/4/9.
@@ -51,9 +56,38 @@ public final class LocalComputer
         }
     }
 
+    public static ArrayList<String> getLocalIP()
+    {
+        ArrayList<String> ipAddresses = new ArrayList<String>();
+        try
+        {
+            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (allNetInterfaces.hasMoreElements())
+            {
+                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+                while (addresses.hasMoreElements())
+                {
+                    InetAddress ip = (InetAddress) addresses.nextElement();
+                    if (ip != null && ip instanceof Inet4Address && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":")==-1)
+                    {
+                        ipAddresses.add(ip.getHostAddress());
+                    }
+                }
+            }
+
+            return ipAddresses;
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws Exception
     {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();//本地环境
-        GraphicsDevice[] gs = ge.getScreenDevices();
+        // GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();//本地环境
+        // GraphicsDevice[] gs = ge.getScreenDevices();
+        System.out.println(getLocalIP());
     }
 }

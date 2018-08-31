@@ -30,6 +30,8 @@ public class ServerApp
         ApplicationContext context = SpringApplication.run(ServerApp.class, args);
         Configs.init("/application.properties");
         // new Thread(new RDServer()).start();
+
+        new CLI().start();
     }
 
     @Bean

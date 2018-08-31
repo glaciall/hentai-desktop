@@ -1,9 +1,11 @@
 package cn.org.hentai.desktop.system.worker;
 
 import cn.org.hentai.desktop.compress.CompressUtil;
+import cn.org.hentai.desktop.system.LocalComputer;
 import cn.org.hentai.desktop.system.Screenshot;
 import cn.org.hentai.desktop.util.Log;
 import cn.org.hentai.desktop.util.Packet;
+import cn.org.hentai.desktop.wss.WSSessionManager;
 
 /**
  * Created by matrixy on 2018/4/10.
@@ -12,6 +14,7 @@ public class CompressWorker extends BaseWorker
 {
     String compressMethod = "rle";          // 压缩方式
     Screenshot lastScreen = null;           // 上一屏的截屏，用于比较图像差
+    Packet packet = Packet.create(1024 * 1024 * 10);
     int sequence = 0;
 
     public CompressWorker()
@@ -72,7 +75,8 @@ public class CompressWorker extends BaseWorker
         // Log.debug("After: " + (compressedData.length / 1024));
 
         // 3. 入队列
-        Packet packet = Packet.create((byte)0x01, compressedData.length + 16);
+        // Packet packet = Packet.create((byte)0x01, compressedData.length + 16);
+        packet.reset();
         packet.addShort((short)screenshot.width)
                 .addShort((short)screenshot.height)
                 .addLong(screenshot.captureTime)
@@ -80,6 +84,8 @@ public class CompressWorker extends BaseWorker
         packet.addBytes(compressedData);
 
         // ScreenImages.addCompressedScreen(packet);
+        // TODO: 推送到每一个WebSocket会话去
+        WSSessionManager.getInstance().broadcast(packet.getBytes(), LocalComputer.getPointer());
 
         lastScreen = screenshot;
     }

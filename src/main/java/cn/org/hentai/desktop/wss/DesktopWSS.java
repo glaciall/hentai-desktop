@@ -65,9 +65,10 @@ public class DesktopWSS
     {
         try
         {
-            // rdSession = RDServer.getCurrentSession();
-            // rdSession.bind(this);
+            WSSessionManager.getInstance().register(this);
             this.sendResponse("request-control", "success");
+
+            // TODO: 需要发送最近的完整画面，以及最近一次的压缩祯
         }
         catch(Exception ex)
         {
@@ -95,7 +96,7 @@ public class DesktopWSS
         }
     }
 
-    public void sendResponse(String action, String result)
+    private void sendResponse(String action, String result)
     {
         JsonObject resp = new JsonObject();
         resp.addProperty("action", action);
@@ -103,7 +104,7 @@ public class DesktopWSS
         sendText(resp.toString());
     }
 
-    private void sendText(String text)
+    public void sendText(String text)
     {
         try
         {
@@ -132,6 +133,7 @@ public class DesktopWSS
     {
         System.out.println("websocket closed...");
         this.httpSession.removeAttribute("isLogin");
+        WSSessionManager.getInstance().unregister(this);
     }
 
     @OnError
