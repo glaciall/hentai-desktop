@@ -48,7 +48,7 @@ public class DesktopWSS
             if ("login".equals(cmd))
             {
                 // TODO: 身份校验
-                if (!CLI.getPassword().equals(cmd))
+                if (!CLI.getPassword().equals(json.get("password").getAsString()))
                 {
                     this.sendResponse("login", "密码错误");
                     return;

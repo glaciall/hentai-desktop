@@ -1,5 +1,6 @@
 package cn.org.hentai.desktop.app;
 
+import cn.org.hentai.desktop.system.LocalComputer;
 import cn.org.hentai.desktop.util.Configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -27,10 +28,12 @@ public class ServerApp
 
     public static void main(String[] args) throws Exception
     {
+        System.setProperty("java.awt.headless", "false");
         ApplicationContext context = SpringApplication.run(ServerApp.class, args);
         Configs.init("/application.properties");
         // new Thread(new RDServer()).start();
 
+        LocalComputer.init();
         new CLI().start();
     }
 

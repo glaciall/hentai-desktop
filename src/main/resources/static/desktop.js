@@ -1,14 +1,14 @@
 window.Desktop = {
     imageData : null,
     canvas : null,
+    element : null,
     totalTransfered : 0,
-    keyboard : [],
-    mouse : [],
-    hidCommands : [],
     connection : null,
     // 状态：standby,connected,controlling,exchanging,disconnected
     state : 'standby',
     frames : [],
+    pointers : [],
+    screenOffset : null,
 
     // 初始化
     init : function()
@@ -19,8 +19,23 @@ window.Desktop = {
         this.showLoginDialog();
         this._startTimer();
 
-        this.canvas = document.getElementById('screen').getContext('2d');
+        this.canvas = (this.element = document.getElementById('screen')).getContext('2d');
         this.imageData = this.canvas.createImageData(10, 10);
+
+        // 初始化鼠标指针
+        for (var i = 0; i < Cursor.length; i++)
+        {
+            var img = new Image();
+            img.src = ROOT_PATH + '/static/icon/cursor/' + Cursor[i] + '.png';
+            img.width = 32;
+            img.height = 32;
+            img.style.position = 'absolute';
+            img.style.top = '-10000px';
+            img.style.left = '-10000px';
+            img.style.zIndex = 10000;
+            this.pointers[i] = img;
+            document.body.appendChild(img);
+        }
     },
     // 身份验证
     login : function()
@@ -29,7 +44,7 @@ window.Desktop = {
         if ($.trim(password).length == 0) return $('.x-message').html('请输入密码');
         this._send({
             type : 'command',
-            command : 'request-control',
+            command : 'login',
             password : password
         });
         $('#btn-auth').addClass('disable');
@@ -41,10 +56,6 @@ window.Desktop = {
         setTimeout(function()
         {
             self.__decompressAndShow();
-        }, 50);
-        setTimeout(function()
-        {
-            self.__sendHIDCommands();
         }, 50);
         setTimeout(function()
         {
@@ -86,6 +97,10 @@ window.Desktop = {
             screenElement.style.marginLeft = parseInt(0 - width / 2) + 'px';
             screenElement.style.marginTop = parseInt(0 - height / 2) + 'px';
             this.imageData = this.canvas.createImageData(width, height);
+            setTimeout(function()
+            {
+                self.__obtainScreenOffset();
+            }, 0);
         }
         decompress('rle', compressedData, this.imageData);
         this.canvas.putImageData(this.imageData, 0, 0);
@@ -162,6 +177,10 @@ window.Desktop = {
             {
                 this._controlling();
             }
+            else if ('pointer' == response.action)
+            {
+                this._showPointer(response.x, response.y, response.style);
+            }
         }
     },
     _onclose : function() { this._disconnected(); },
@@ -220,6 +239,25 @@ window.Desktop = {
             self._controlling();
         });
     },
+
+    lastPointer : null,
+    _showPointer : function(x, y, style)
+    {
+        if (this.lastPointer)
+        {
+            this.lastPointer.style.left = '-10000px';
+            this.lastPointer.style.top = '-10000px';
+        }
+        if (null == this.screenOffset) return;
+        this.pointers[style].style.top = (this.screenOffset.top + y) + 'px';
+        this.pointers[style].style.left = (this.screenOffset.left + x) + 'px';
+        this.lastPointer = this.pointers[style];
+    },
+    __obtainScreenOffset : function()
+    {
+        this.screenOffset = $(this.element).offset();
+    },
+
     // /////////////////////////////////////////////////////////////////////
     // UI相关
     showLoginDialog : function()

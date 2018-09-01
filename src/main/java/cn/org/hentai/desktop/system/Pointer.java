@@ -12,7 +12,8 @@ public class Pointer
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof Pointer) return super.equals(obj);
+        if (null == obj) return false;
+        if (!(obj instanceof Pointer)) return false;
         else
         {
             Pointer p = (Pointer) obj;
