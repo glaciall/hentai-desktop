@@ -1,5 +1,6 @@
 package cn.org.hentai.desktop.wss;
 
+import cn.org.hentai.desktop.app.CLI;
 import cn.org.hentai.desktop.app.GetHttpSessionConfigurator;
 import cn.org.hentai.desktop.util.Configs;
 import cn.org.hentai.desktop.util.Log;
@@ -47,21 +48,19 @@ public class DesktopWSS
             if ("login".equals(cmd))
             {
                 // TODO: 身份校验
-                if (cmd == null)
+                if (!CLI.getPassword().equals(cmd))
                 {
-
-                    // try { this.session.close(); } catch(Exception e) { }
                     this.sendResponse("login", "密码错误");
                     return;
                 }
                 this.httpSession.setAttribute("isLogin", true);
                 this.sendResponse("login", "success");
-                requestControl();
+                requestDesktopSharing();
             }
         }
     }
 
-    private void requestControl()
+    private void requestDesktopSharing()
     {
         try
         {

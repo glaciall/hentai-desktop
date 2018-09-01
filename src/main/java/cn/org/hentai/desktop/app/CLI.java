@@ -5,6 +5,7 @@ import cn.org.hentai.desktop.system.worker.BaseWorker;
 import cn.org.hentai.desktop.system.worker.CaptureWorker;
 import cn.org.hentai.desktop.system.worker.CompressWorker;
 import cn.org.hentai.desktop.util.Configs;
+import cn.org.hentai.desktop.util.NonceStr;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
  */
 public class CLI extends Thread
 {
+    static String password;
+
     BaseWorker captureWorker = null;
     BaseWorker compressWorker = null;
 
@@ -36,6 +39,8 @@ public class CLI extends Thread
         {
             echo(String.format("  http://%s:%d/", addr, Configs.getInt("server.port", 5656)));
         }
+        password = NonceStr.generate(8);
+        echo(String.format("access password: %s", password));
 
         loop : while (true)
         {
@@ -76,13 +81,15 @@ public class CLI extends Thread
                 // TODO: 列出全部听众
                 echo("all listening members:");
             }
-            else if ("passwd".equals(text))
+            else if (text.matches("^password\\s+(\\w{8})$"))
             {
                 // TODO: 设定访问密码
+                password = text.replaceAll("^password\\s+(\\w{8})$", "$1");
+                echo("new password applied");
             }
             else if (text.matches("^kick \\d+$"))
             {
-                // TODO: 踢出指定的听众
+                // TODO: 踢出指定的围观群众
                 String id = text.replaceAll("^kick (\\d+)$", "$1");
                 echo("kick the member: " + id);
             }
@@ -132,6 +139,11 @@ public class CLI extends Thread
         {
             ex.printStackTrace();
         }
+    }
+
+    public static String getPassword()
+    {
+        return password;
     }
 
     public static void main(String[] args) throws Exception
