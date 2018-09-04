@@ -62,122 +62,15 @@ body
     margin-left: -400px;
     margin-top: -300px;
 }
-.x-cmd-bar
-{
-    z-index: 100;
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    width: 500px;
-    height: 40px;
-    margin-left: -250px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
-}
-.x-cmd-bar .x-icon
-{
-    width: 70px;
-    height: 100px;
-    border-radius: 80px;
-    background-color: #000;
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    margin-left: -35px;
-    background-image: url(./cthulhu.png);
-    background-repeat: no-repeat;
-    background-position: center 30px;
-}
-.x-cmd-bar .x-cmd
-{
-    width: 40px;
-    height: 40px;
-    background-repeat: no-repeat;
-    background-size: 32px 32px;
-    background-color: transparent;
-    background-position: center;
-    cursor: pointer;
-    display: block;
-}
-.x-cmd-bar .x-cmd-right
-{
-    float: right;
-    margin-left: 10px;
-}
-.x-cmd-bar .x-cmd-left
-{
-    float: left;
-    margin-right: 10px;
-}
-.x-cmd-bar .x-cmd-transfer
-{
-    background-image: url(./icon/transfer.png);
-}
-.x-cmd-bar .x-cmd-transfer:hover
-{
-    background-image: url(./icon/transfer-hover.png);
-    background-color: #000000;
-}
-.x-cmd-bar .x-cmd-printscreen
-{
-    background-image: url(./icon/printscreen.png);
-}
-.x-cmd-bar .x-cmd-printscreen:hover
-{
-    background-image: url(./icon/printscreen-hover.png);
-    background-color: #000000;
-}
-.x-cmd-bar .x-cmd-disconnect
-{
-    background-image: url(./icon/disconnect.png);
-}
-.x-cmd-bar .x-cmd-disconnect:hover
-{
-    background-image: url(./icon/disconnect-hover.png);
-    background-color: #000000;
-}
-.x-cmd-bar .x-cmd-color
-{
-    background-image: url(./icon/color.png);
-}
-.x-cmd-bar .x-cmd-color:hover
-{
-    background-image: url(./icon/color-hover.png);
-    background-color: #000000;
-}
-.x-cmd-bar .x-cmd-copy
-{
-    background-image: url(./icon/copy.png);
-}
-.x-cmd-bar .x-cmd-copy:hover
-{
-    background-image: url(./icon/copy-hover.png);
-    background-color: #000000;
-}
-.x-cmd-bar .x-cmd-keyboard
-{
-    background-image: url(./icon/keyboard.png);
-}
-.x-cmd-bar .x-cmd-keyboard:hover
-{
-    background-image: url(./icon/keyboard-hover.png);
-    background-color: #000000;
-}
 .x-stat-panel
 {
     z-index: 100;
     position: absolute;
     left: -10px;
     top: 50%;
-    margin-top: -300px;
+    margin-top: -88px;
     width: 110px;
-    height: 600px;
+    height: 176px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -192,7 +85,7 @@ body
 .x-stat-panel .x-stat h1
 {
     font-size: 18px;
-    color: #888;
+    color: #cccccc;
     text-align: center;
     margin: 0px;
     padding: 0px;
@@ -202,7 +95,7 @@ body
 {
     font-weight: normal;
     font-size: 7px;
-    color: #666;
+    color: #777777;
     text-align: center;
     margin: 0px;
     padding: 0px;
@@ -213,7 +106,7 @@ body
     margin: 10px 0px;
     border-style: solid;
     border-width: 0px 0px 1px 0px;
-    border-color: #555;
+    border-color: #555555;
 }
 .x-auth-dialog
 {

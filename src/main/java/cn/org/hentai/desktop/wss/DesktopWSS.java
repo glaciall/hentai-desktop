@@ -32,7 +32,7 @@ public class DesktopWSS
     @OnOpen
     public void onOpen(Session session, EndpointConfig config)
     {
-        System.out.println("websocket opened: " + session);
+        // System.out.println("websocket opened: " + session);
         this.session = session;
         this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
     }
@@ -130,7 +130,7 @@ public class DesktopWSS
     @OnClose
     public void onClose()
     {
-        System.out.println("websocket closed...");
+        // System.out.println("websocket closed...");
         this.httpSession.removeAttribute("isLogin");
         WSSessionManager.getInstance().unregister(this);
     }

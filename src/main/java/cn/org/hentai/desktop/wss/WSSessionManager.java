@@ -33,12 +33,13 @@ public final class WSSessionManager
             WSSession session = itr.next();
             try
             {
-                session.sendScreenshot(screenshot);
-                session.sendPointerInfo(pointer);
+                if (screenshot != null) session.sendScreenshot(screenshot);
+                if (pointer != null) session.sendPointerInfo(pointer);
             }
             catch(Exception ex)
             {
-                Log.error(ex);
+                // Log.error(ex);
+                System.out.println(ex.toString());
             }
         }
     }

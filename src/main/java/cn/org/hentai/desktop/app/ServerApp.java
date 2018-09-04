@@ -2,6 +2,7 @@ package cn.org.hentai.desktop.app;
 
 import cn.org.hentai.desktop.system.LocalComputer;
 import cn.org.hentai.desktop.util.Configs;
+import cn.org.hentai.desktop.util.logger.StdOutDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,6 +15,8 @@ import org.springframework.core.env.Environment;
 import org.sqlite.SQLiteDataSource;
 
 import javax.sql.DataSource;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 /**
  * Created by matrixy on 2017-12-12.
@@ -29,6 +32,10 @@ public class ServerApp
     public static void main(String[] args) throws Exception
     {
         System.setProperty("java.awt.headless", "false");
+        StdOutDelegate stdWriter = StdOutDelegate.newInstance(System.out);
+        System.setOut(stdWriter);
+        System.setErr(stdWriter);
+
         ApplicationContext context = SpringApplication.run(ServerApp.class, args);
         Configs.init("/application.properties");
         // new Thread(new RDServer()).start();

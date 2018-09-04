@@ -26,7 +26,6 @@
         <h1>0 kb</h1>
         <h5>total transfer</h5>
     </div>
-    <hr />
 </div>
 <div class="x-auth-dialog">
     <div class="x-title">输入密码开始连接</div>

@@ -11,7 +11,7 @@ public class BaseWorker extends Thread
     public void terminate()
     {
         this.isTerminated = true;
-        Log.info("Terminate: " + this.getName() + ": " + this.getClass().getName());
+        // Log.info("Terminate: " + this.getName() + ": " + this.getClass().getName());
     }
 
     public boolean isTerminated()

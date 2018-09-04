@@ -16,6 +16,7 @@ public class CompressWorker extends BaseWorker
     Screenshot lastScreen = null;           // 上一屏的截屏，用于比较图像差
     Packet packet = Packet.create(1024 * 1024 * 10);
     int sequence = 0;
+    long lastSentTime = 0L;
 
     public CompressWorker()
     {
@@ -84,9 +85,10 @@ public class CompressWorker extends BaseWorker
         packet.addBytes(compressedData);
 
         // ScreenImages.addCompressedScreen(packet);
-        // TODO: 推送到每一个WebSocket会话去
-        WSSessionManager.getInstance().broadcast(packet.getBytes(), LocalComputer.getPointer());
+        // 推送到每一个WebSocket会话去
 
+        WSSessionManager.getInstance().broadcast(packet.getBytes(), LocalComputer.getPointer());
+        lastSentTime = System.currentTimeMillis();
         lastScreen = screenshot;
     }
 
@@ -96,6 +98,10 @@ public class CompressWorker extends BaseWorker
         {
             try
             {
+                if (System.currentTimeMillis() - lastSentTime > 100)
+                {
+                    WSSessionManager.getInstance().broadcast(null, LocalComputer.getPointer());
+                }
                 compress();
                 sleep(5);
             }
