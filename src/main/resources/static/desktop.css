@@ -181,8 +181,13 @@ body
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.8);
     padding: 10px 10px 10px 20px;
+    opacity: 0.1;
+}
+.x-stat-panel:hover
+{
+    opacity: 1;
 }
 .x-stat-panel .x-stat h1
 {
