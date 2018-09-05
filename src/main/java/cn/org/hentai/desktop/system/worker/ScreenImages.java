@@ -1,7 +1,7 @@
 package cn.org.hentai.desktop.system.worker;
 
 import cn.org.hentai.desktop.system.Screenshot;
-import com.sun.xml.internal.ws.api.message.Packet;
+import cn.org.hentai.desktop.util.Packet;
 
 import java.util.LinkedList;
 
