@@ -238,6 +238,10 @@ window.Desktop = {
             (dialog = $(this).parents('.x-dialog')).animateCss('bounceOut', function(){ dialog.hide(); });
             self._controlling();
         });
+        window.onresize = function()
+        {
+            self.__obtainScreenOffset();
+        }
     },
 
     lastPointer : null,
