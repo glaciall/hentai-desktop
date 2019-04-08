@@ -5,6 +5,8 @@ import cn.org.hentai.desktop.system.Screenshot;
 import cn.org.hentai.desktop.util.Log;
 import com.google.gson.JsonObject;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by matrixy on 2018/8/31.
  */
@@ -16,6 +18,11 @@ public class WSSession
     public WSSession(DesktopWSS connection)
     {
         this.connection = connection;
+    }
+
+    public int getId()
+    {
+        return connection.getId();
     }
 
     // 下发屏幕画面
@@ -51,5 +58,10 @@ public class WSSession
         }
         // 发送
         connection.sendText(json.toString());
+    }
+
+    public DesktopWSS getConnection()
+    {
+        return this.connection;
     }
 }

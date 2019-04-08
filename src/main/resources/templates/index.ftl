@@ -12,6 +12,11 @@
     <canvas id="screen" width="800" height="600"></canvas>
 </div>
 <div class="x-stat-panel">
+    <div class="x-stat" id="x-session-id">
+        <h1></h1>
+        <h5>Id</h5>
+    </div>
+    <hr />
     <div class="x-stat" id="x-frames">
         <h1>0</h1>
         <h5>frames</h5>

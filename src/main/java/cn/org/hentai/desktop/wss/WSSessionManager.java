@@ -14,14 +14,20 @@ public final class WSSessionManager
 {
     ConcurrentHashMap<Integer, WSSession> sessions = new ConcurrentHashMap<Integer, WSSession>(10);
 
-    public void register(DesktopWSS connection)
+    public int register(DesktopWSS connection)
     {
-        sessions.put(connection.hashCode(), new WSSession(connection));
+        sessions.put(connection.getId(), new WSSession(connection));
+        return connection.getId();
     }
 
     public void unregister(DesktopWSS connection)
     {
         sessions.remove(connection.hashCode());
+    }
+
+    public WSSession[] list()
+    {
+        return sessions.values().toArray(new WSSession[0]);
     }
 
     // 广播屏幕画面，发送到每一个活动的连接上去
@@ -54,5 +60,15 @@ public final class WSSessionManager
     {
         if (null == instance) instance = new WSSessionManager();
         return instance;
+    }
+
+    public void kick(int id)
+    {
+        WSSession session = sessions.remove(id);
+        if (session != null)
+        {
+            // TODO: 应该限定目标IP在一定的时间内不能再连接进来
+            session.getConnection().shutdown();
+        }
     }
 }

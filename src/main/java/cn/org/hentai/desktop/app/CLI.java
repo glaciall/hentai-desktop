@@ -6,6 +6,8 @@ import cn.org.hentai.desktop.system.worker.CaptureWorker;
 import cn.org.hentai.desktop.system.worker.CompressWorker;
 import cn.org.hentai.desktop.util.Configs;
 import cn.org.hentai.desktop.util.NonceStr;
+import cn.org.hentai.desktop.wss.WSSession;
+import cn.org.hentai.desktop.wss.WSSessionManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -39,7 +41,7 @@ public class CLI extends Thread
         {
             echo(String.format("  http://%s:%d/", addr, Configs.getInt("server.port", 5656)));
         }
-        password = NonceStr.generate(8);
+        password = String.valueOf(10000000 + (int)(Math.random() * 89999999));
         echo(String.format("access password: %s", password));
 
         loop : while (true)
@@ -80,6 +82,11 @@ public class CLI extends Thread
             {
                 // TODO: 列出全部听众
                 echo("all listening members:");
+                WSSession[] sessions = WSSessionManager.getInstance().list();
+                for (WSSession session : sessions)
+                {
+                    echo(String.format("\tID: %11d, IP: %s", session.getId(), session.getId()));
+                }
             }
             else if (text.matches("^password\\s+(\\w{8})$"))
             {
@@ -92,6 +99,7 @@ public class CLI extends Thread
                 // TODO: 踢出指定的围观群众
                 String id = text.replaceAll("^kick (\\d+)$", "$1");
                 echo("kick the member: " + id);
+                WSSessionManager.getInstance().kick(Integer.parseInt(id));
             }
             else if (text.matches("^\\d+$"))
             {

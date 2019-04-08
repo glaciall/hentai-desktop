@@ -168,10 +168,18 @@ window.Desktop = {
                 }
                 else $('.x-message').text(response.result);
             }
-            else if ('request-control' == response.action)
+            else if ('request-desktop' == response.action)
             {
                 if (response.result != 'success') this.showMessage(response.result);
                 else $('.x-auth-dialog').animateCss('bounceOut', function() { $('.x-auth-dialog').hide(); });
+                $('#x-session-id h1').html(response.extra);
+            }
+            else if ('status' == response.action)
+            {
+                if ('kicked' == response.result)
+                {
+                    alert('你已经被移出屏幕分享会议');
+                }
             }
             else if ('setup' == response.action)
             {

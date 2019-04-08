@@ -8,6 +8,7 @@ import cn.org.hentai.desktop.util.Packet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
@@ -17,24 +18,33 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by matrixy on 2018/4/12.
  */
 @Component
+@Scope("prototype")
 @ServerEndpoint(value = "/desktop/wss", configurator = GetHttpSessionConfigurator.class)
 public class DesktopWSS
 {
+    static AtomicInteger sequence = new AtomicInteger(1);
+
+    int id;
     Session session;
-    // RDSession rdSession = null;
     HttpSession httpSession = null;
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config)
     {
-        // System.out.println("websocket opened: " + session);
+        this.id = sequence.getAndAdd(1);
         this.session = session;
         this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+    }
+
+    public int getId()
+    {
+        return this.id;
     }
 
     @OnMessage
@@ -64,14 +74,14 @@ public class DesktopWSS
     {
         try
         {
-            WSSessionManager.getInstance().register(this);
-            this.sendResponse("request-control", "success");
+            int sessionId = WSSessionManager.getInstance().register(this);
+            this.sendResponse("request-desktop", "success", String.valueOf(sessionId));
 
             // TODO: 需要发送最近的完整画面，以及最近一次的压缩祯
         }
         catch(Exception ex)
         {
-            this.sendResponse("request-control", ex.getMessage());
+            this.sendResponse("request-desktop", ex.getMessage());
         }
     }
 
@@ -97,9 +107,23 @@ public class DesktopWSS
 
     private void sendResponse(String action, String result)
     {
+        sendResponse(action, result, null);
+    }
+
+    private void sendResponse(String action, String result, String extra)
+    {
         JsonObject resp = new JsonObject();
         resp.addProperty("action", action);
         resp.addProperty("result", result);
+        if (extra != null) resp.addProperty("extra", extra);
+        sendText(resp.toString());
+    }
+
+    private void sendMessage(String action, String data)
+    {
+        JsonObject resp = new JsonObject();
+        resp.addProperty("action", action);
+        resp.addProperty("result", data);
         sendText(resp.toString());
     }
 
@@ -139,5 +163,10 @@ public class DesktopWSS
     public void onError(Session session, Throwable ex)
     {
         ex.printStackTrace();
+    }
+
+    public void shutdown()
+    {
+        this.sendMessage("status", "kicked");
     }
 }
