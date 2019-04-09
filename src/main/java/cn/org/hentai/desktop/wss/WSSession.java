@@ -64,4 +64,9 @@ public class WSSession
     {
         return this.connection;
     }
+
+    public String getRemoteAddr()
+    {
+        return this.connection.getRemoteAddr();
+    }
 }

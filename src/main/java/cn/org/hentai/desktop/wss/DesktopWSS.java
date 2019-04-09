@@ -36,8 +36,7 @@ public class DesktopWSS
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config)
-    {
-        this.id = sequence.getAndAdd(1);
+    {this.id = sequence.getAndAdd(1);
         this.session = session;
         this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
     }
@@ -168,5 +167,10 @@ public class DesktopWSS
     public void shutdown()
     {
         this.sendMessage("status", "kicked");
+    }
+
+    public String getRemoteAddr()
+    {
+        return (String)this.httpSession.getAttribute("remote-addr");
     }
 }
