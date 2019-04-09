@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -22,9 +23,10 @@ import java.util.LinkedList;
 public class MainController
 {
     @RequestMapping("/")
-    public String index(HttpSession session)
+    public String index(HttpSession session, HttpServletRequest request)
     {
         session.setMaxInactiveInterval(60);
+        session.setAttribute("remote-addr", request.getRemoteAddr());
         return "index";
     }
 

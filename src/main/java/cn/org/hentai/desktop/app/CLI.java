@@ -85,7 +85,7 @@ public class CLI extends Thread
                 WSSession[] sessions = WSSessionManager.getInstance().list();
                 for (WSSession session : sessions)
                 {
-                    echo(String.format("\tID: %11d, IP: %s", session.getId(), session.getId()));
+                    echo(String.format("\tID: %11d, IP: %s", session.getId(), session.getRemoteAddr()));
                 }
             }
             else if (text.matches("^password\\s+(\\w{8})$"))
@@ -124,10 +124,11 @@ public class CLI extends Thread
             if (!valid)
             {
                 echo("Commands: ");
-                echo("start - start to share the desktop");
-                echo("stop - stop the desktop sharing");
-                echo("list - list all members");
-                echo("kick <id> - kick the member with <id>");
+                echo("\tstart - start to share the desktop");
+                echo("\tstop - stop the desktop sharing");
+                echo("\tlist - list all members");
+                echo("\tkick <id> - kick the member with <id>");
+                echo("\tpassword <password> - set password (8 characters)");
             }
         }
     }

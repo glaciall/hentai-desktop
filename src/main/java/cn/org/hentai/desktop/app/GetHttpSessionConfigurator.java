@@ -15,5 +15,6 @@ public class GetHttpSessionConfigurator extends ServerEndpointConfig.Configurato
     {
         HttpSession httpSession = (HttpSession) request.getHttpSession();
         sec.getUserProperties().put(HttpSession.class.getName(), httpSession);
+        sec.getUserProperties().put("remote-addr", "");
     }
 }
