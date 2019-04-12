@@ -154,7 +154,7 @@ public class DesktopWSS
     public void onClose()
     {
         // System.out.println("websocket closed...");
-        this.httpSession.removeAttribute("isLogin");
+        try { this.httpSession.removeAttribute("isLogin"); } catch(Exception ex) { }
         WSSessionManager.getInstance().unregister(this);
     }
 

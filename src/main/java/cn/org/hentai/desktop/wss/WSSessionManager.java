@@ -39,7 +39,14 @@ public final class WSSessionManager
             WSSession session = itr.next();
             try
             {
-                if (screenshot != null) session.sendScreenshot(screenshot);
+                if (screenshot != null)
+                {
+                    boolean result = session.sendScreenshot(screenshot);
+                    if (result == false)
+                    {
+                        itr.remove();
+                    }
+                }
                 if (pointer != null) session.sendPointerInfo(pointer);
             }
             catch(Exception ex)
