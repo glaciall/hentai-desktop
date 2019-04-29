@@ -51,6 +51,21 @@ body
     height: 100%;
     position: relative;
 }
+.opening
+{
+    display: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(./hint.png);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
+    z-index: 100;
+    width: 800px;
+    height: 600px;
+}
 .x-screen canvas
 {
     display: block;

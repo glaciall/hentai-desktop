@@ -52,7 +52,7 @@ public final class WSSessionManager
             catch(Exception ex)
             {
                 // Log.error(ex);
-                System.out.println(ex.toString());
+                // System.out.println(ex.toString());
             }
         }
     }

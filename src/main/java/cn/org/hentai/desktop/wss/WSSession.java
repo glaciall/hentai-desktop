@@ -28,16 +28,7 @@ public class WSSession
     // 下发屏幕画面
     public boolean sendScreenshot(byte[] screenshot)
     {
-        try
-        {
-            connection.sendScreenshot(screenshot);
-            return true;
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-            return false;
-        }
+        return connection.sendScreenshot(screenshot);
     }
 
     // 下发鼠标指针信息

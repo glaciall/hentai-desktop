@@ -91,17 +91,18 @@ public class DesktopWSS
     }
 
     // 下发屏幕截图
-    public void sendScreenshot(byte[] screenshot)
+    public boolean sendScreenshot(byte[] screenshot)
     {
         try
         {
-            if (!this.session.isOpen()) throw new Exception("websocket was closed");
+            if (!this.session.isOpen()) return false;
             sendBinary(screenshot);
         }
         catch(Exception e)
         {
             Log.error(e);
         }
+        return true;
     }
 
     private void sendResponse(String action, String result)

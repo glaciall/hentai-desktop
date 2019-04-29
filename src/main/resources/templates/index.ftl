@@ -10,6 +10,7 @@
 <body>
 <div class="x-screen">
     <canvas id="screen" width="800" height="600"></canvas>
+    <div class="opening"></div>
 </div>
 <div class="x-stat-panel">
     <div class="x-stat" id="x-session-id">
