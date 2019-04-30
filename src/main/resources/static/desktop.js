@@ -152,7 +152,7 @@ window.Desktop = {
         var self = this;
         if (resp.data instanceof ArrayBuffer)
         {
-            if (self.totalTransfered == 0) $('.opening').hide();
+            if (self.totalTransfered == 0) $('.opening').fadeOut();
             var packet = new Uint8Array(resp.data);
             this.frames.push(packet);
         }
@@ -166,7 +166,7 @@ window.Desktop = {
                 if (response.result == 'success')
                 {
                     $('.x-message').text('密码校验通过');
-                    $('.opening').show();
+                    $('.opening').fadeIn();
                 }
                 else $('.x-message').text(response.result);
             }
