@@ -129,6 +129,7 @@ public class CLI extends Thread
                 echo("\tlist - list all members");
                 echo("\tkick <id> - kick the member with <id>");
                 echo("\tpassword <password> - set password (8 characters)");
+                echo("\texit - exit this program");
             }
         }
     }
