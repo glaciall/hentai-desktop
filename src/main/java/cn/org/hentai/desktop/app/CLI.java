@@ -21,8 +21,8 @@ public class CLI extends Thread
 {
     static String password;
 
-    BaseWorker captureWorker = null;
-    BaseWorker compressWorker = null;
+    CaptureWorker captureWorker = null;
+    CompressWorker compressWorker = null;
 
     String state = "idle";
 
@@ -154,6 +154,23 @@ public class CLI extends Thread
     public static String getPassword()
     {
         return password;
+    }
+
+    static CLI instance = null;
+    public static void init()
+    {
+        instance = new CLI();
+        instance.start();
+    }
+
+    public static synchronized CLI getInstance()
+    {
+        return instance;
+    }
+
+    public static synchronized void resetScreen()
+    {
+        if (instance != null && instance.compressWorker != null) instance.compressWorker.resetScreen();
     }
 
     public static void main(String[] args) throws Exception

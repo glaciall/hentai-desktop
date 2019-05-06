@@ -1,5 +1,6 @@
 package cn.org.hentai.desktop.wss;
 
+import cn.org.hentai.desktop.app.CLI;
 import cn.org.hentai.desktop.system.Pointer;
 import cn.org.hentai.desktop.system.Screenshot;
 import cn.org.hentai.desktop.util.Log;
@@ -17,6 +18,7 @@ public final class WSSessionManager
     public int register(DesktopWSS connection)
     {
         sessions.put(connection.getId(), new WSSession(connection));
+        try { CLI.resetScreen(); } catch(Exception e) { }
         return connection.getId();
     }
 

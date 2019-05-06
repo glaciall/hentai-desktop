@@ -41,7 +41,7 @@ public class ServerApp
         // new Thread(new RDServer()).start();
 
         LocalComputer.init();
-        new CLI().start();
+        CLI.init();
     }
 
     @Bean

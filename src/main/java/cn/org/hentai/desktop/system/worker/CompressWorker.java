@@ -28,6 +28,11 @@ public class CompressWorker extends BaseWorker
         this.compressMethod = method;
     }
 
+    public void resetScreen()
+    {
+        this.lastScreen = null;
+    }
+
     private void compress() throws Exception
     {
         Screenshot screenshot = null;
