@@ -75,7 +75,11 @@ public final class WSSessionManager
         if (session != null)
         {
             // TODO: 应该限定目标IP在一定的时间内不能再连接进来
-            session.getConnection().shutdown();
+            try
+            {
+                session.getConnection().shutdown();
+            }
+            catch(Exception ex) { }
         }
     }
 }
