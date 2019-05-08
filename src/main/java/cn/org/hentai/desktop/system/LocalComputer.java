@@ -1,5 +1,8 @@
 package cn.org.hentai.desktop.system;
 
+import com.sun.jna.IntegerType;
+import com.sun.jna.Native;
+
 import java.awt.*;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -30,9 +33,38 @@ public final class LocalComputer
         Pointer pointer = new Pointer();
         pointer.x = (int)p.getX();
         pointer.y = (int)p.getY();
-        pointer.style = Cursor.getDefaultCursor().getType();
+        pointer.style = getCursorStyle();
         return pointer;
     }
+
+    private static int getCursorStyle()
+    {
+        User32 user32 = User32.INSTANCE;
+        User32.CURSORINFO cursorinfo = new User32.CURSORINFO();
+        int success = user32.GetCursorInfo(cursorinfo);
+        if (success != 1) return 0;
+        int style = 0;
+        switch(Integer.parseInt(cursorinfo.hCursor.toNative().toString().replaceAll("native@0x", ""), 16))
+        {
+            case 65545 : style = 1; break;      // crosshair
+            case 65541 : style = 3; break;      // text
+            case 65539 : style = 0; break;      // default
+            case 65567 : style = 12; break;     // hand
+            case 65555 : style = 8; break;      // n-resize
+            case 65549 : style = 6; break;      // nw-resize
+            case 65551 : style = 4; break;      // sw-resize
+            case 65557 : style = 13; break;     // move
+            case 65543 : style = 3; break;      // wait
+            case 65559 : style = 0; break;      // not-allowed
+            case 7932567 : style = 0; break;    // grab
+            case 65561 : style = 3; break;      // progress
+            case 2688043 : style = 0; break;    // zoom-in
+            case 132773 : style = 0; break;     // zoom-out
+        }
+        return style;
+    }
+
+
 
     /**
      * 获取屏幕分辨率
@@ -85,8 +117,11 @@ public final class LocalComputer
 
     public static void main(String[] args) throws Exception
     {
-        // GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();//本地环境
-        // GraphicsDevice[] gs = ge.getScreenDevices();
-        System.out.println(getLocalIP());
+        for (int i = 0; i < 10000; i++)
+        {
+            int cursor = getCursorStyle();
+            System.out.println(cursor);
+            Thread.sleep(1000);
+        }
     }
 }
