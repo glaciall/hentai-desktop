@@ -40,8 +40,7 @@ public final class LocalComputer
      */
     public static Rectangle getScreenSize()
     {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return new Rectangle((int)screenSize.getWidth(), (int)screenSize.getHeight());
+        return new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
     }
 
     public static void init()
