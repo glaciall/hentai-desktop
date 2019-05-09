@@ -44,15 +44,19 @@ public final class LocalComputer
         int success = user32.GetCursorInfo(cursorinfo);
         if (success != 1) return 0;
         int style = 0;
-        switch(Integer.parseInt(cursorinfo.hCursor.toNative().toString().replaceAll("native@0x", ""), 16))
+        if (cursorinfo.hCursor == null) return 0;
+        int val = Integer.parseInt(cursorinfo.hCursor.toNative().toString().replaceAll("native@0x", ""), 16);
+        switch(val)
         {
             case 65545 : style = 1; break;      // crosshair
-            case 65541 : style = 3; break;      // text
+            case 65541 : style = 2; break;      // text
             case 65539 : style = 0; break;      // default
             case 65567 : style = 12; break;     // hand
+            case 1902083 : style = 12; break;   // hand
             case 65555 : style = 8; break;      // n-resize
             case 65549 : style = 6; break;      // nw-resize
             case 65551 : style = 4; break;      // sw-resize
+            case 65553 : style = 11; break;     // e-resize
             case 65557 : style = 13; break;     // move
             case 65543 : style = 3; break;      // wait
             case 65559 : style = 0; break;      // not-allowed
@@ -120,7 +124,6 @@ public final class LocalComputer
         for (int i = 0; i < 10000; i++)
         {
             int cursor = getCursorStyle();
-            System.out.println(cursor);
             Thread.sleep(1000);
         }
     }
