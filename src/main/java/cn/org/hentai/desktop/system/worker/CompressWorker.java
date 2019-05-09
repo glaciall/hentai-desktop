@@ -103,7 +103,7 @@ public class CompressWorker extends BaseWorker
         {
             try
             {
-                if (System.currentTimeMillis() - lastSentTime > 100)
+                if (System.currentTimeMillis() - lastSentTime > 20)
                 {
                     lastSentTime = System.currentTimeMillis();
                     WSSessionManager.getInstance().broadcast(null, LocalComputer.getPointer());
