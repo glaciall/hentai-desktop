@@ -1,8 +1,5 @@
 package cn.org.hentai.desktop.system;
 
-import com.sun.jna.IntegerType;
-import com.sun.jna.Native;
-
 import java.awt.*;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -16,6 +13,7 @@ import java.util.Enumeration;
 public final class LocalComputer
 {
     static Robot robot = null;
+    static String osname = "unknown";
 
     /**
      * 创建整屏截图
@@ -39,6 +37,7 @@ public final class LocalComputer
 
     private static int getCursorStyle()
     {
+        if (osname.startsWith("Windows") == false) return 0;
         User32 user32 = User32.INSTANCE;
         User32.CURSORINFO cursorinfo = new User32.CURSORINFO();
         int success = user32.GetCursorInfo(cursorinfo);
@@ -84,6 +83,7 @@ public final class LocalComputer
         try
         {
             robot = new Robot();
+            osname = System.getProperty("os.name");
         }
         catch(AWTException ex)
         {
